@@ -16,6 +16,7 @@ export const Restaurants = () => (
         name={restaurant.name}
         rating={restaurant.rating}
         key={restaurant.id}
+        products={restaurant.products}
       />
     ))}
   </Container>
