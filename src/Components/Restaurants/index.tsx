@@ -1,23 +1,30 @@
+import { Restaurante } from "../../types/restaurante";
 import { RestaurantCard } from "../RestaurantCard";
 import { Container } from "./styles";
-import { RestaurantsDB } from "../../MockDB/restaurants";
+import { useEffect, useState } from "react";
 
-const restaurants = RestaurantsDB;
-
-export const Restaurants = () => (
-  <Container>
-    {restaurants.map((restaurant) => (
-      <RestaurantCard
-        cousine={restaurant.cousine}
-        description={restaurant.description}
-        id={restaurant.id}
-        image={restaurant.image}
-        isHighlight={restaurant.isHighlight}
-        name={restaurant.name}
-        rating={restaurant.rating}
-        key={restaurant.id}
-        products={restaurant.products}
-      />
-    ))}
-  </Container>
-);
+export const Restaurants = () => {
+  const [restaurants, setRestaurants] = useState<Restaurante[]>([]);
+  useEffect(() => {
+    fetch("https://fake-api-tau.vercel.app/api/efood/restaurantes")
+      .then((res) => res.json())
+      .then((res) => setRestaurants(res));
+  }, []);
+  return (
+    <Container>
+      {restaurants.map((restaurant) => (
+        <RestaurantCard
+          tipo={restaurant.tipo}
+          descricao={restaurant.descricao}
+          id={restaurant.id}
+          capa={restaurant.capa}
+          destacado={restaurant.destacado}
+          titulo={restaurant.titulo}
+          avaliacao={restaurant.avaliacao}
+          key={restaurant.id}
+          cardapio={restaurant.cardapio}
+        />
+      ))}
+    </Container>
+  );
+};

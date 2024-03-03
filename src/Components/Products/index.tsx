@@ -1,18 +1,20 @@
 import { ProductCard } from "../Product";
 import { Container } from "./styles";
-import { Product } from "../../Models/products";
+import { Prato } from "../../types/cardapio";
 
 type Props = {
-  products: Product[];
+  products: Prato[];
 };
 
 export const Products = ({ products }: Props) => (
   <Container>
     {products.map((p) => (
       <ProductCard
-        title={p.title}
-        image={p.image}
-        description={p.description}
+        title={p.nome}
+        image={p.foto}
+        description={p.descricao}
+        price={p.preco}
+        serving={p.porcao}
       />
     ))}
   </Container>

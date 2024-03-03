@@ -1,6 +1,6 @@
 import star from "../../assets/star.svg";
+import { Restaurante } from "../../types/restaurante";
 import { Button } from "../Button";
-import { Restaurant } from "../../Models/restaurant";
 import {
   Card,
   ContentContainer,
@@ -13,30 +13,30 @@ import {
 import { useNavigate } from "react-router-dom";
 export const RestaurantCard = ({
   id,
-  cousine,
-  description,
-  isHighlight,
-  name,
-  rating,
-  image,
-}: Restaurant) => {
+  avaliacao,
+  capa,
+  descricao,
+  destacado,
+  tipo,
+  titulo,
+}: Restaurante) => {
   const navigate = useNavigate();
   return (
     <Card>
-      <ProductPhoto src={image} alt={name} />
+      <ProductPhoto src={capa} alt={titulo} />
       <TagsContainer>
-        {isHighlight && <Tag>Destaque da semana</Tag>}
-        <Tag>{cousine}</Tag>
+        {destacado && <Tag>Destaque da semana</Tag>}
+        <Tag>{tipo}</Tag>
       </TagsContainer>
       <ContentContainer>
         <TitleAndRatingContainer>
-          <h3>{name}</h3>
+          <h3>{titulo}</h3>
           <div>
-            <span>{rating}</span>
+            <span>{avaliacao}</span>
             <img src={star} alt="nota" />
           </div>
         </TitleAndRatingContainer>
-        <Description>{description}</Description>
+        <Description>{descricao}</Description>
         <Button onClick={() => navigate(`/restaurante/${id}`)}>
           Saiba mais
         </Button>
