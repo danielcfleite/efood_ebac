@@ -6,7 +6,7 @@ export const Container = styled.button`
   color: ${colors.darkerPastel};
   font-weight: bold;
   font-size: 14px;
-  padding: 4px 6px;
+  padding: 4px 0;
   border: none;
   cursor: pointer;
   transition: 0.1s ease-in-out;

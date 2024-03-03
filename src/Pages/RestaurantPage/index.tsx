@@ -1,32 +1,42 @@
 import { useParams } from "react-router-dom";
-import { RestaurantsDB } from "../../MockDB/restaurants";
 import { RestaurantBanner } from "../../Components/RestaurantBanner";
 import { Header } from "../../Components/Header";
 import { Products } from "../../Components/Products";
+import { useEffect, useState } from "react";
+import { Restaurante } from "../../types/restaurante";
 
 export const RestaurantPage = () => {
   const { id } = useParams<{ id: string }>();
-  const parsedId = id ? parseInt(id) : undefined;
-  const restaurant = parsedId
-    ? RestaurantsDB.find((i) => i.id === parsedId)
-    : undefined;
-  const products = restaurant ? restaurant.products : undefined;
+  const [restaurants, setRestaurants] = useState<Restaurante[]>([]);
+  useEffect(() => {
+    fetch("https://fake-api-tau.vercel.app/api/efood/restaurantes")
+      .then((res) => res.json())
+      .then((res) => setRestaurants(res));
+  }, []);
+  if (!id) {
+    return <h3>Oops...404</h3>;
+  }
+  const restaurante = restaurants.find((r) => r.id === parseInt(id));
   return (
     <>
       <Header size="small" />
-      {restaurant ? (
+      {restaurante ? (
         <>
           <RestaurantBanner
-            image={restaurant.image}
-            name={restaurant.name}
-            cousine={restaurant.cousine}
+            image={restaurante.capa}
+            name={restaurante.titulo}
+            cousine={restaurante.tipo}
           />
           <div className="container">
-            {products ? <Products products={products} /> : <></>}
+            {restaurante.cardapio ? (
+              <Products products={restaurante.cardapio} />
+            ) : (
+              <></>
+            )}
           </div>
         </>
       ) : (
-        <>ERRO!</>
+        <>OOPS! 404</>
       )}
     </>
   );
