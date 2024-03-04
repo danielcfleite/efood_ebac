@@ -1,4 +1,3 @@
-import { useState } from "react";
 import {
   AddToCartButton,
   Card,
@@ -12,50 +11,46 @@ import {
 import closeButton from "../../assets/close.png";
 import { formataPreco } from "../../utils/formataPreco";
 import { getDescricao } from "../../utils/getDescricao";
+import { useDispatch } from "react-redux";
+import { add, open } from "../../store/reducers/cart";
+import { Prato } from "../../types/cardapio";
+import { useState } from "react";
 
 type Props = {
-  image: string;
-  title: string;
-  description: string;
-  serving: string;
-  price: number;
+  produto: Prato;
 };
 
-export const ProductCard = ({
-  image,
-  title,
-  description,
-  price,
-  serving,
-}: Props) => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+export const ProductCard = ({ produto }: Props) => {
+  const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const addToCart = () => {
+    dispatch(add(produto));
+    dispatch(open());
+  };
   return (
     <Card>
-      <img src={image} alt={title} />
+      <img src={produto.foto} alt={produto.nome} />
       <ContentContainer>
-        <Title>{title}</Title>
-        <Description> {getDescricao(`${description}`)}</Description>
-        <AddToCartButton onClick={() => setIsModalVisible(true)}>
+        <Title>{produto.nome}</Title>
+        <Description> {getDescricao(`${produto.descricao}`)}</Description>
+        <AddToCartButton onClick={() => setIsOpen(true)}>
           Adicionar ao Carrinho
         </AddToCartButton>
       </ContentContainer>
-      <Modal className={isModalVisible ? "visible" : ""}>
+      <Modal className={isOpen ? "visible" : ""}>
         <div className="container">
-          <CloseButton
-            src={closeButton}
-            onClick={() => setIsModalVisible(false)}
-          />
-          <img src={image} alt={title} />
+          <CloseButton src={closeButton} onClick={() => setIsOpen(false)} />
+          <img src={produto.foto} alt={produto.nome} />
           <ProductInfo>
-            <h3>{title}</h3>
-            <p>{description}</p>
-            <p>Serve: de {serving}</p>
-            <AddToCartButton>
-              Adicionar ao carrinho - {formataPreco(price)}
+            <h3>{produto.nome}</h3>
+            <p>{produto.descricao}</p>
+            <p>Serve: de {produto.porcao}</p>
+            <AddToCartButton onClick={addToCart}>
+              Adicionar ao carrinho - {formataPreco(produto.preco)}
             </AddToCartButton>
           </ProductInfo>
         </div>
-        <div className="overlay" onClick={() => setIsModalVisible(false)} />
+        <div className="overlay" onClick={() => setIsOpen(false)} />
       </Modal>
     </Card>
   );

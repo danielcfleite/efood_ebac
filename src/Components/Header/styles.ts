@@ -14,6 +14,7 @@ export const HeaderContainer = styled.header<Props>`
     span {
       font-size: 18px;
       font-weight: bold;
+      cursor: pointer;
     }
   }
 
