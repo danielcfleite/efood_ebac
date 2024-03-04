@@ -1,15 +1,12 @@
-import { Restaurante } from "../../types/restaurante";
+import { useGetRestaurantsQuery } from "../../services/api";
 import { RestaurantCard } from "../RestaurantCard";
 import { Container } from "./styles";
-import { useEffect, useState } from "react";
 
 export const Restaurants = () => {
-  const [restaurants, setRestaurants] = useState<Restaurante[]>([]);
-  useEffect(() => {
-    fetch("https://fake-api-tau.vercel.app/api/efood/restaurantes")
-      .then((res) => res.json())
-      .then((res) => setRestaurants(res));
-  }, []);
+  const { data: restaurants } = useGetRestaurantsQuery();
+  if (!restaurants) {
+    return <h3>Carregando</h3>;
+  }
   return (
     <Container>
       {restaurants.map((restaurant) => (

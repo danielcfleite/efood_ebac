@@ -9,13 +9,7 @@ type Props = {
 export const Products = ({ products }: Props) => (
   <Container>
     {products.map((p) => (
-      <ProductCard
-        title={p.nome}
-        image={p.foto}
-        description={p.descricao}
-        price={p.preco}
-        serving={p.porcao}
-      />
+      <ProductCard key={p.id} produto={p} />
     ))}
   </Container>
 );

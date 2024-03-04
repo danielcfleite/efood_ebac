@@ -1,8 +1,9 @@
 export type Prato = {
   descricao: string;
   foto: string;
-  id: string;
+  id: number;
   nome: string;
   porcao: string;
   preco: number;
+  quantidade?: number;
 };
