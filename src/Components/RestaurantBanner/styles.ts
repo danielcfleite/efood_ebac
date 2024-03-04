@@ -12,7 +12,7 @@ export const Banner = styled.div`
     width: 100%;
     height: 100%;
     background-color: black;
-    z-index: 2;
+    z-index: 1;
     position: absolute;
     opacity: 0.5;
     top: 0;
@@ -24,15 +24,11 @@ export const Banner = styled.div`
     height: 100%;
 
     h2 {
-      z-index: 3;
-
       position: absolute;
       bottom: 32px;
       color: ${colors.white};
     }
     p {
-      z-index: 3;
-
       position: absolute;
       top: 25px;
       color: ${colors.white};

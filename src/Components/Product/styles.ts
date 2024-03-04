@@ -77,7 +77,7 @@ export const Modal = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  z-index: 1;
+  z-index: 10;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -89,7 +89,7 @@ export const Modal = styled.div`
 
   .container {
     position: relative;
-    z-index: 1;
+    z-index: 2;
     display: flex;
     padding: 32px;
     background-color: ${colors.salmon};
