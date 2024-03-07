@@ -5,12 +5,14 @@ type CartState = {
   items: Prato[];
   isOpen: boolean;
   total: number;
+  isCheckout: boolean;
 };
 
 const initialState: CartState = {
   items: [],
   isOpen: false,
   total: 0,
+  isCheckout: false,
 };
 
 const cartSlice = createSlice({
@@ -40,12 +42,10 @@ const cartSlice = createSlice({
       }
     },
     remove: (state, action: PayloadAction<number>) => {
-      // Find the item to be removed
       const itemToRemove = state.items.find(
         (item) => item.id === action.payload
       );
 
-      // If the item is found, calculate the total amount to be removed
       let totalToRemove = 0;
       if (itemToRemove) {
         totalToRemove = itemToRemove.quantidade! * itemToRemove.preco;
@@ -55,10 +55,8 @@ const cartSlice = createSlice({
         state.total = 0;
       }
 
-      // Subtract the calculated total from the state total
       state.total -= totalToRemove;
 
-      // Filter out the item to be removed
       state.items = state.items.filter((item) => item.id !== action.payload);
     },
     open: (state) => {
@@ -96,10 +94,25 @@ const cartSlice = createSlice({
         }
       }
     },
+    toggleCheckout: (state) => {
+      state.isCheckout = !state.isCheckout;
+    },
+    resetCart: (state) => {
+      state.items = [];
+      state.total = 0;
+    },
   },
 });
 
-export const { add, close, open, remove, addMore, removeOne } =
-  cartSlice.actions;
+export const {
+  add,
+  close,
+  open,
+  remove,
+  addMore,
+  removeOne,
+  toggleCheckout,
+  resetCart,
+} = cartSlice.actions;
 
 export default cartSlice.reducer;

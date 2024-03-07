@@ -46,9 +46,9 @@ export const SideBar = styled.aside`
     margin-bottom: 16px;
 
     * {
-      color: ${colors.background};
       font-weight: bold;
       font-size: 14px;
+      color: ${colors.darkerPastel};
     }
   }
 `;
@@ -97,6 +97,10 @@ export const DeleteButton = styled.button`
 `;
 
 export const GoToCheckoutButton = styled(AddToCartButton)`
+  &.disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
   width: 100%;
 `;
 
@@ -110,5 +114,9 @@ export const QuantityButton = styled.button`
 
   &:hover {
     filter: brightness(1.3);
+  }
+
+  p {
+    margin-bottom: 8px;
   }
 `;
