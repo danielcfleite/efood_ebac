@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CheckoutButton,
   CheckoutContainer,
@@ -22,7 +22,6 @@ export const Checkout = () => {
   const { items } = useSelector((state: RootReducer) => state.cart);
   const submit = () => {
     form.handleSubmit();
-    if (isSuccess) setIsSubmitSuccess(true);
   };
   const [purchase, { data, isSuccess, isLoading }] = usePurchaseMutation();
   const handlePaymentButton = (e: MouseEvent<HTMLButtonElement>) => {
@@ -45,6 +44,11 @@ export const Checkout = () => {
     setIsSubmitSuccess(false);
     dispatch(resetCart());
   };
+  useEffect(() => {
+    if (isSuccess) {
+      setIsSubmitSuccess(true);
+    }
+  }, [isSuccess]);
   const form = useFormik({
     initialValues: {
       receiver: "",
@@ -122,6 +126,7 @@ export const Checkout = () => {
       });
     },
   });
+
   return (
     <form>
       {!isSubmitSuccess && (
