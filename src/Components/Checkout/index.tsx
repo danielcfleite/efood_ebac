@@ -14,11 +14,13 @@ import { usePurchaseMutation } from "../../services/api";
 import { MouseEvent } from "react";
 import { Loader } from "../Loader";
 import InputMask from "react-input-mask";
+import { formataPreco } from "../../utils/formataPreco";
 
 export const Checkout = () => {
   const [isPayment, setIsPayment] = useState(false);
   const [isSubmitSuccess, setIsSubmitSuccess] = useState(false);
   const dispatch = useDispatch();
+  const { total } = useSelector((state: RootReducer) => state.cart);
   const { items } = useSelector((state: RootReducer) => state.cart);
   const submit = () => {
     form.handleSubmit();
@@ -133,7 +135,7 @@ export const Checkout = () => {
         <CheckoutContainer>
           {isPayment ? (
             <div>
-              <h3>Pagamento - valor de VALOR</h3>
+              <h3>Pagamento - Valor a pagar {formataPreco(total)}</h3>
               <div>
                 <InputContainer>
                   <label htmlFor="nameInCard">Nome no cartão</label>
