@@ -135,7 +135,7 @@ export const Checkout = () => {
         <CheckoutContainer>
           {isPayment ? (
             <div>
-              <h3>Pagamento - {formataPreco(total)}</h3>
+              <h3>Pagamento - Valor a pagar {formataPreco(total)}</h3>
               <div>
                 <InputContainer>
                   <label htmlFor="nameInCard">Nome no cartão</label>
